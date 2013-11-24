@@ -8,11 +8,12 @@ module CreditCardValidation
   end
 
   def self.valid_credit_card?(cc_no)
-  # Determines whether a CC# is valid via Luhn algorithm
-  luhn(cc_no) % 10 == 0
+    # Determines whether a CC# is valid via Luhn algorithm
+    luhn(cc_no) % 10 == 0
   end
 
   def self.generate_valid_credit_card_number
+    # Generates a valid 16-digit CC#
     evens, odds = [rand(9)], []
     7.times do
       evens << rand(9)
@@ -21,8 +22,8 @@ module CreditCardValidation
     double_evens = evens.map do |digit|
       (2 * digit).to_s.split('').map(&:to_i).reduce(:+)
     end
-    checksum = 10 - (double_evens.reduce(:+) + odds.reduce(:+)) % 10
-    evens.zip(odds).flatten.join + checksum.to_s
+    checksum = 10 - (double_evens + odds).reduce(:+) % 10
+    evens.zip(odds).flatten.join + checksum.to_s[-1]
   end
 end
 
