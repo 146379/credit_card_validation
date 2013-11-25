@@ -25,6 +25,10 @@ module CreditCardValidation
     checksum = 10 - (double_evens + odds).reduce(:+) % 10
     evens.zip(odds).flatten.join + checksum.to_s[-1]
   end
+
+  def self.visa?(cc_no)
+    self.valid_credit_card?(cc_no) && cc_no.to_s[0] == '4'
+  end
 end
 
 
@@ -37,4 +41,5 @@ cc2 = CreditCardValidation.generate_valid_credit_card_number
 p cc2
 p CreditCardValidation.luhn(cc2)
 p CreditCardValidation.valid_credit_card?(cc2)
+p CreditCardValidation.visa?(4036465843269999)
 
