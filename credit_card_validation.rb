@@ -29,6 +29,10 @@ module CreditCardValidation
   def self.visa?(cc_no)
     self.valid_credit_card?(cc_no) && cc_no.to_s[0] == '4'
   end
+
+  def self.mastercard?(cc_no)
+    self.valid_credit_card?(cc_no) && cc_no.to_s[0] == '5'
+  end
 end
 
 
@@ -42,4 +46,5 @@ p cc2
 p CreditCardValidation.luhn(cc2)
 p CreditCardValidation.valid_credit_card?(cc2)
 p CreditCardValidation.visa?(4036465843269999)
+p CreditCardValidation.mastercard?(5759095078005073)
 
