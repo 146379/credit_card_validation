@@ -1,10 +1,10 @@
 module CreditCardValidation
 
-  # TODO; implement logic to handle odd length CC#'s'
   def self.luhn(credit_card_number)
-    digits = credit_card_number.to_s.split('').map(&:to_i)
-    evens, odds = *digits.each_slice(2).to_a.transpose
-    (evens.map { |d| 2*d > 9 ? 1 + 2*d % 10 : 2*d } + odds).reduce(:+)
+    digits = credit_card_number.to_s.reverse.split('').map(&:to_i)
+    digits.map.with_index do |digit, i|
+      i.even? ? digit : 2 * digit / 10 + 2 * digit % 10
+    end.reduce(:+)
   end
 
   def self.valid_credit_card?(cc_no)
