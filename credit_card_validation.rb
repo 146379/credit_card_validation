@@ -14,16 +14,12 @@ module CreditCardValidation
 
   def self.generate_valid_credit_card_number
     # Generates a valid 16-digit CC#
-    evens, odds = [rand(9)], []
-    7.times do
-      evens << rand(9)
-      odds << rand(9)
-    end
-    double_evens = evens.map do |digit|
-      (2 * digit).to_s.split('').map(&:to_i).reduce(:+)
-    end
-    checksum = 10 - (double_evens + odds).reduce(:+) % 10
-    evens.zip(odds).flatten.join + checksum.to_s[-1]
+    digits = Array.new(15) { rand(10) }
+    sum = digits.map.with_index do |digit, i|
+      i.odd? ? digit : 2 * digit / 10 + 2 * digit % 10
+    end.reduce(:+)
+    checksum = ((10 - sum) % 10) % 10
+    digits.map(&:to_s).join + checksum.to_s
   end
 
   def self.visa?(cc_no)

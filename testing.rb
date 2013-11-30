@@ -33,3 +33,6 @@ psum = bin.map do |cc|
 end
 
 p psum, psum.length, psum.uniq, psum.uniq.length
+
+p CreditCardValidation.luhn(4374374300386157)
+p CreditCardValidation.luhn(4374379412851998)
